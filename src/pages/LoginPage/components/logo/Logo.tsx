@@ -1,4 +1,5 @@
-import { Rectangle } from "./component/rectangle"
+import { Rectangle } from "./component/Rectangle"
+
 
 export const Logo = () => {
   return (

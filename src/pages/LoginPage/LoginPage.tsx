@@ -1,5 +1,7 @@
+
+import { LoginForm } from "./components/loginForm/LoginForm"
 import { Logo } from "./components/logo/Logo"
-import { LoginTitle } from "./components/title/LoginTitle"
+
 
 export const LoginPage = () => {
   return (
@@ -8,9 +10,7 @@ export const LoginPage = () => {
         <Logo/>
       </div>
       <div className="flex flex-col justify-center items-center w-1/2 bg-white">
-        <div className="flex flex-col w-[439px] h-[432px] p-[24px] bg-amber-300" >
-          <LoginTitle title="Sign In" description="Enter your details to access your personal account."/>
-        </div>
+       <LoginForm/>
       </div>
     </div>
   )
