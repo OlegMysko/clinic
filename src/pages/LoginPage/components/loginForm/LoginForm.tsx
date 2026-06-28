@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { Input } from "../../../../components/input/Input";
+import { Input } from "@/components/input/Input";
 import { LoginTitle } from "../title/LoginTitle";
-
+import { loginValidation } from "@/features/auth/model/login.validation";
 export const LoginForm = () => {
   type LoginFormData = {
     email: string;
@@ -33,13 +33,7 @@ export const LoginForm = () => {
         type="email"
         placeholder="example@email.com"
         register={register}
-        rules={{
-          required: "email is required",
-          pattern: {
-            value: /^\S+@\S+\.\S+$/,
-            message: "email not correct!",
-          },
-        }}
+        rules={loginValidation.email}
         error={errors.email?.message}
       />
       <Input
@@ -48,18 +42,17 @@ export const LoginForm = () => {
         type="password"
         placeholder="Enter your password"
         register={register}
-        rules={{
-          required: "password is required",
-          pattern: {
-            value: /^[a-zA-Z0-9]{6,}$/,
-            message: "the password is wrong",
-          },
-        }}
+        rules={loginValidation.password}
         error={errors.password?.message}
       />
 
-      <button  type="submit" className="w-full h-[44px] 
-      rounded-[16px] text-[white] bg-[#111827]">Log in</button>
+      <button
+        type="submit"
+        className="w-full h-[44px] 
+      rounded-[5px] text-[white] bg-[#111827]"
+      >
+        Log in
+      </button>
     </form>
   );
 };
