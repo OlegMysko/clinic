@@ -2,5 +2,10 @@ import './main.css';
 import { createRoot } from 'react-dom/client';
 
 import { Root } from './app/router/Root';
+import { Provider } from 'react-redux';
+import store from './app/store/store';
 
-createRoot(document.getElementById('root') as HTMLElement).render(<Root />);
+createRoot(document.getElementById('root') as HTMLElement).render(
+  <Provider store={store}>
+     <Root />
+  </Provider>);

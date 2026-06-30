@@ -49,7 +49,7 @@ export const LoginForm = () => {
       <button
         type="submit"
         className="w-full h-[44px] 
-      rounded-[5px] text-[white] bg-[#111827]"
+      rounded-[5px] text-[white] bg-[#111827] hover:bg-[black]"
       >
         Log in
       </button>

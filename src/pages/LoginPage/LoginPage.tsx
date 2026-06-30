@@ -1,6 +1,6 @@
 
 import { LoginForm } from "./components/loginForm/LoginForm"
-import { Logo } from "./components/logo/Logo"
+import { Logo } from "@/components/logo/Logo"
 
 
 export const LoginPage = () => {
