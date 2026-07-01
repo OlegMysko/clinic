@@ -10,7 +10,7 @@ export const loginValidation = {
   password: {
     required: "password is required",
     pattern: {
-      value: /^[a-zA-Z0-9]{6,}$/,
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_\-\\[\]\\/]).{8,}$/,
       message: "the password is wrong",
     },
   },

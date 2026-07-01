@@ -7,7 +7,9 @@ export default defineConfig({
   plugins: [react(),
     tailwindcss()
     
-  ],
+  ], server: {
+    port: 3000,
+  },
   
   base: '/clinic/',
     resolve: {
