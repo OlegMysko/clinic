@@ -11,5 +11,5 @@ export const authService = {
   },
 
   logout: () => client.post('account/logout'),
-  refresh: ():Promise<AuthData> =>client.post('account/refresh')
+  refresh: (refresh_token:string):Promise<AuthData> =>client.post('accounts/refresh',{refresh_token})
 }

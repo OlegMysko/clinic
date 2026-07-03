@@ -17,14 +17,14 @@ export const AuthLoader = ({ children }) => {
       if (!refreshToken) return;
 
       try {
-        const data = await authService.refresh();
+        const data = await authService.refresh(refreshToken);
         const normalize = mapLoginResponse(data)
 
         dispatch(
           setCredentials({
             user: normalize.user,
             accessToken: normalize.accessToken,
-            refreshToken: normalize.refreshToken,
+            
           })
         );
 

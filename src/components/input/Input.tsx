@@ -1,47 +1,97 @@
 import { useState } from "react";
-import type { RegisterOptions,} from "react-hook-form";
-import { PiEyeLight } from "react-icons/pi";
-import { PiEyeSlash } from "react-icons/pi"; 
-type Proops = {
-  type: "email" | "password" | "text";
-  label: string;
-  placeholder?: string;
-  name: string;
-  register?: any;
-  rules: RegisterOptions;
+import type {
+  FieldValues,
+  RegisterOptions,
+  UseFormRegister,
+} from "react-hook-form";
+
+import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
+import { CiSearch } from "react-icons/ci";
+
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
+  register?: UseFormRegister<FieldValues>;
+  rules?: RegisterOptions;
   error?: string;
 };
-export const Input: React.FC<Proops> = ({
-  type,
+
+export const Input: React.FC<Props> = ({
   label,
-  placeholder,
   register,
-  name,
   rules,
   error,
+  type,
+  name,
+  className,
+  ...props
 }) => {
-  const [lookPasword, showPassword] = useState(false)
-  const handleLookPassword = ()=> showPassword(prev=>!prev)
+  const [showPassword, setShowPassword] = useState(false);
+
+  const registerProps =
+    register && name ? register(name, rules) : {};
+
   return (
-    <>
-     
-      <label htmlFor={`user-${label}`} className="font-[Inter] font-medium text-[14px] mb-[10px]">{label}</label>
-      <div className={`relative  ${error ? 'mb-[10px] border-[#EF4444]':'mb-[25px]'}`}>
-      <input id={`user-${label}`}
-        type={lookPasword && type==='password'?'text':type}
-        placeholder={placeholder}
-        {...(register ? register(name, rules) : {})}
-        className={` text-[14px] border p-2 rounded-[5px] w-full h-[44px] pr-[40px]
-         `}
-      />
-        {type === "password" && <button type="button"
-          onClick={handleLookPassword}
-          className="absolute right-3
-top-1/2 -translate-y-1/2">
-          {lookPasword ? <PiEyeLight /> : <PiEyeSlash />}</button>}
-         </div>
-        {error && <p className=" mb-[16px] text-[13px] text-[#EF4444]">{error}</p>}
-       
-    </>
+    <div className="flex flex-col">
+      {label && (
+        <label
+          htmlFor={name}
+          className="font-[Inter] font-medium text-[14px] mb-[10px]"
+        >
+          {label}
+        </label>
+      )}
+
+      <div
+        className={`relative ${
+          error ? "mb-[10px]" : "mb-[25px]"
+        }`}
+      >
+        <input
+          id={name}
+          type={
+            showPassword && type === "password"
+              ? "text"
+              : type
+          }
+          className={
+            className ??
+            `border rounded-[5px] p-2 text-[14px] ${
+              type === "search"
+                ? "w-[365px] pl-10"
+                : "w-full h-[44px] pr-10"
+            }`
+          }
+          {...props}
+          {...registerProps}
+        />
+
+        {type === "password" && (
+          <button
+            type="button"
+            onClick={() =>
+              setShowPassword((prev) => !prev)
+            }
+            className="absolute right-3 top-1/2 -translate-y-1/2"
+          >
+            {showPassword ? (
+              <PiEyeLight />
+            ) : (
+              <PiEyeSlash />
+            )}
+          </button>
+        )}
+
+        {type === "search" && (
+          <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-xl" />
+        )}
+      </div>
+
+      {error && (
+        <p className="text-[13px] mb-[16px] text-red-500">
+          {error}
+        </p>
+      )}
+    </div>
   );
 };
+

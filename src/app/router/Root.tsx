@@ -11,14 +11,17 @@ export const Root: React.FC = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path='/login' element={<LoginPage />} />
-       <Route
-  path="/admin"
-  element={
+        
+        <Route path='/' element={<App />}>
+           <Route path="/admin" element={
     <ProtectedRoute>
       <AdminPage />
     </ProtectedRoute>
   }
 />
+
+        </Route>
+      
         
       </Routes>
     </HashRouter>

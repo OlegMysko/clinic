@@ -8,8 +8,7 @@ import { useNavigate } from "react-router-dom"
 export const AdminPage: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const handleLogout = () =>
-  {
+  const handleLogout = () => {
     dispatch(logout())
      refreshTokenService.remove();
     accessTokenService.remove();
@@ -18,6 +17,7 @@ export const AdminPage: React.FC = () => {
   }
   
   return <>
+    
   <h1>HELLO ADMIN</h1>
   <button
   onClick={handleLogout}>LOG OUT</button></> 
