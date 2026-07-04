@@ -1,12 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { User } from "@/types/User";
 import { loginThunk } from "./authThunk";
+import { refreshThunk } from "./refreshThunk";
 interface authState {
   user: User | null;
   accessToken: string | null;
   refreshToken: string | null;
   isAuth: boolean;
   loading: boolean;
+  isInitialized: boolean;
   error: null | string;
 }
 
@@ -16,7 +18,8 @@ const initialState: authState = {
   refreshToken: null,
   isAuth: false,
   loading: false,
-  error:null
+  error: null,
+  isInitialized:false,
 };
 
 const authSlice = createSlice({
@@ -33,13 +36,30 @@ const authSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.user = action.payload.user;
-        state.isAuth = true
+        state.isAuth = true;
+        state.isInitialized = true;
+        state.loading = false;
       })
       .addCase(loginThunk.rejected, (state) => {
         state.user = null;
         state.accessToken = null;
         state.refreshToken = null;
         state.isAuth = false;
+        state.isInitialized = true;
+      })
+      .addCase(refreshThunk.fulfilled, (state, action) => {
+       state.accessToken = action.payload.accessToken
+        state.user = action.payload.user;
+        state.isAuth = true;
+        state.isInitialized = true;
+        state.loading = false;
+      })
+      .addCase(refreshThunk.rejected,(state)=> {
+    state.user = null;
+        state.accessToken = null;
+        state.refreshToken = null;
+        state.isAuth = false;
+        state.isInitialized = true;
     })
   }
 });
