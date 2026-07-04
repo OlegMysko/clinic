@@ -3,7 +3,7 @@ import { authService } from "@/services/authService";
 import axios, { AxiosError } from "axios";
 
 export const httpClient = axios.create({
-  baseURL: import.meta.env.VITE.VITE_API_URL as string,
+  baseURL:  import.meta.env.VITE_API_URL,
   withCredentials: true,
 })
 

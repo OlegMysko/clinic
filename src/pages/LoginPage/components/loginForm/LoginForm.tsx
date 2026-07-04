@@ -2,18 +2,15 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/input/Input";
 import { LoginTitle } from "../title/LoginTitle";
 import { loginValidation } from "@/features/auth/model/login.validation";
-
-import { authService } from "@/services/authService";
 import { useAppDispatch } from "@/app/store/hook";
-import { setCredentials } from "@/features/auth/authSlice";
-import { accessTokenService } from "@/services/accessTokenService";
-import { refreshTokenService } from "@/services/refreshTokenService";
-import {  useNavigate } from "react-router-dom";
-import { mapLoginResponse } from "@/mapper/auth.mapper";
+import { useNavigate } from "react-router-dom";
+import { loginThunk } from "@/features/auth/authThunk";
+
+
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   type LoginFormData = {
     email: string;
     password: string;
@@ -24,21 +21,16 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  const onSubmit = async ({ email, password }: LoginFormData) => {
-    const data = await authService.login(email, password);
-    const normalizeData = mapLoginResponse(data)
-    dispatch(setCredentials({
-      user: normalizeData.user,
-      accessToken: normalizeData.accessToken,
-      refreshToken: normalizeData.refreshToken,
-      
-      
-    }))
-    accessTokenService.save(normalizeData.accessToken);
-    refreshTokenService.save(normalizeData.refreshToken);
-    navigate("/admin");
-  console.log(normalizeData);
-};
+  const onSubmit = async (data:LoginFormData) => {
+    await dispatch(
+      loginThunk({
+        email: data.email,
+        password: data.password
+     })
+    )
+    navigate('/admin')
+ }
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

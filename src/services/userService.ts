@@ -1,8 +1,9 @@
+import type { User } from '@/types/User';
 import { httpClient } from '../http/httpClient';
 
 
 export const userService = {
-  getAll: (): Promise<User[]> => httpClient.get('/users'),
+  getCurrentUser: (): Promise<User> => httpClient.get('accounts/users/me'),
   
   changeName: (name: string)=> 
   httpClient.patch('/users/change-name', {name},{

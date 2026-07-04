@@ -1,44 +1,48 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import  type { User } from "@/types/User";
-interface authState  {
+import type { User } from "@/types/User";
+import { loginThunk } from "./authThunk";
+interface authState {
   user: User | null;
   accessToken: string | null;
   refreshToken: string | null;
   isAuth: boolean;
-  
+  loading: boolean;
+  error: null | string;
 }
 
 const initialState: authState = {
   user: null,
   accessToken: null,
   refreshToken: null,
-  isAuth:false,
-
-}
+  isAuth: false,
+  loading: false,
+  error:null
+};
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    setCredentials: (state, action:PayloadAction<{
-    user: User;
-    accessToken: string;
-      refreshToken: string;
-      isAuth: boolean;
-  }>) => {
-      state.user = action.payload.user;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-      state.isAuth = true;
-    },
-    logout: (state) => {
-      state.user = null;
-      state.accessToken = null;
-      state.refreshToken = null;
-      state.isAuth = false;
-    }
+  }, extraReducers: (builder) => {
+    builder
+      .addCase(loginThunk.pending, state => {
+        state.loading = true;
+      
+      })
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        state.user = action.payload.user;
+        state.isAuth = true
+      })
+      .addCase(loginThunk.rejected, (state) => {
+        state.user = null;
+        state.accessToken = null;
+        state.refreshToken = null;
+        state.isAuth = false;
+    })
   }
-})
+});
 
-export const { setCredentials, logout } = authSlice.actions;
-export default authSlice.reducer
+export const {} = authSlice.actions;
+export default authSlice.reducer;
