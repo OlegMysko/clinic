@@ -1,10 +1,10 @@
 import { CiHome } from "react-icons/ci";
-import { PiChats } from "react-icons/pi";
+import { PiChatDotsLight } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import { ROUTES } from "./routes";
 import { CiStethoscope } from "react-icons/ci";
-import { LuDock } from "react-icons/lu";
-import { TbCalendarTime } from "react-icons/tb";
+import { PiHandshakeLight } from "react-icons/pi";
+import { CiCalendar } from "react-icons/ci";
 export const navigation = [
   {
     title: "Dashboard",
@@ -14,7 +14,7 @@ export const navigation = [
   {
     title: "Reminder",
     path: ROUTES.REMINDER,
-    icon: <PiChats />,
+    icon: <PiChatDotsLight />,
   },
   {
     title: "Patients",
@@ -29,11 +29,11 @@ export const navigation = [
   {
     title: "Appointments",
     path: ROUTES.APPOINTMENTS,
-    icon: <LuDock />,
+    icon: <PiHandshakeLight />,
   },
   {
     title: "Calendar",
     path: ROUTES.CALENDAR,
-    icon: <TbCalendarTime />,
+    icon: <CiCalendar />,
   },
 ];

@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
   console.log(user,'sdfsdf')
   return (
     <>
-      <div className="w-full flex justify-between  h-[92px] pl-[40px] pr-[40px] pt-[24px] pb-[24px] bg-amber-400">
+      <div className="w-full flex justify-between  h-[92px] pl-[40px] pr-[40px] pt-[24px] pb-[24px] ">
         <Input
           name="search"
           // value={search}
