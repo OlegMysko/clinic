@@ -21,14 +21,22 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  const onSubmit = async (data:LoginFormData) => {
-    await dispatch(
+  const onSubmit = async (data: LoginFormData) => {
+    console.log("SUBMIT", data);
+    
+  try { await dispatch(
       loginThunk({
         email: data.email,
         password: data.password
      })
-    )
+  ).unwrap()
     navigate('/dashboard')
+    } 
+  catch (e) {
+    console.log(e)
+    
+    }
+    
  }
   
   return (

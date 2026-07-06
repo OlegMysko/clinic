@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/app/store/hook";
 
@@ -8,7 +8,7 @@ export const ProtectedRoute = () => {
   );
 
   if (!auth.isInitialized) {
-    return ('helelo')
+    return ('user not found')
   }
 
   if (!auth.isAuth) {

@@ -7,12 +7,10 @@ import store from './app/store/store';
 import { AuthLoader } from './components/authLoader/authLoader';
 
 
+
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
-    
+    <AuthLoader>
       <Root />
-    
-      
-    
-     
+      </AuthLoader>
   </Provider>);

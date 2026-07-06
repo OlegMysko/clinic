@@ -6,8 +6,8 @@ export const Footer: React.FC = () => {
     flex items-center  rounded-[8px]
      pl-[12px] pr-[12px] 
       hover:bg-[#EF4444]
-       hover:text-[#1E3A8A]
+       hover:text-[#FFFF]
    text-[#1F2937]">
-        {<CiLogout className="w-[20px] h-[20px] mr-[8px]" />} Log out</button>
+        {<CiLogout className="w-[20px] h-[20px] mr-[8px]"  />} Log out</button>
     </div></>)
 }

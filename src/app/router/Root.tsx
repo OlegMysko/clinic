@@ -11,6 +11,7 @@ import { AppointmentsPage } from "@/pages/Appointments/AppointmentsPage";
 import { CalendarPage } from "@/pages/Calendar/CalendarPage";
 import { ROUTES } from "@/shared/config/routes";
 
+
 export const Root: React.FC = () => {
   return (
     <HashRouter>
@@ -19,6 +20,7 @@ export const Root: React.FC = () => {
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
 
         <Route path="/" element={<App />}>
+          
           <Route element={<ProtectedRoute />}>
             <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />
             <Route path={ROUTES.REMINDER} element={<ReminderPage />} />
