@@ -10,7 +10,7 @@ import "tailwindcss";
 export const App: React.FC = () => {
  
   return (<> <AuthLoader>
-    <div className='flex w-full' >
+    <div className='flex w-full h-full' >
       <NavBar />
       <Header /> 
     </div>

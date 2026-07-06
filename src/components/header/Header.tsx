@@ -2,10 +2,12 @@
 import { Input } from "../input/Input";
 import { CiBellOn } from "react-icons/ci";
 import { UserInfo } from "./component/userInfo/UserInfo";
+import { useAppSelector } from "@/app/store/hook";
 
 
 export const Header: React.FC = () => {
- 
+ const user = useAppSelector(state => state.auth.user)
+  console.log(user,'sdfsdf')
   return (
     <>
       <div className="w-full flex justify-between  h-[92px] pl-[40px] pr-[40px] pt-[24px] pb-[24px] bg-amber-400">
@@ -22,7 +24,7 @@ export const Header: React.FC = () => {
             <div className="absolute w-[8px] h-[8px] right-[12px] top-[13px] rounded-[100%] bg-[#EF4444]"></div>
           </button>
 
-          <UserInfo />
+          {user && <UserInfo user={user}/>}
         </div>
       </div>
     </>

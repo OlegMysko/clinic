@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "@/app/store/hook";
 
-export const ProtectedRoute = ({children}) => {
+export const ProtectedRoute = () => {
   const auth = useAppSelector(
     state => state.auth
   );
@@ -15,5 +15,5 @@ export const ProtectedRoute = ({children}) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <Outlet/>
 }

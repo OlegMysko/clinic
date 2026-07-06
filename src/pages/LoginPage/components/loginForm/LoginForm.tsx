@@ -28,7 +28,7 @@ export const LoginForm = () => {
         password: data.password
      })
     )
-    navigate('/admin')
+    navigate('/dashboard')
  }
   
   return (
