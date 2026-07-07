@@ -1,15 +1,24 @@
 
  type Props = {
-   name: string;
-   icon?: SVGAElement;
-    onClick: () => void;
+   children: React.ReactNode;
+   icon?: React.ReactNode;
+   onClick?: () => void;
+   className?: string;
     
   }
-export const ButtonPage:React.FC<Props> = ({name,icon, onClick}) => {
+export const ButtonPage:React.FC<Props> = ({children , className,icon, onClick}) => {
  
   return <>
-    <button className=" h-[36px] flex justify-center items-center 
-    ml-[16px] pl-[12px] pr-[12px] rounded-[8px]
-     text-[#FFFFFF] bg-[#111827] cursor-pointer" onClick={onClick}>
-    {icon} {name}</button></>
+    <button  className={`
+    h-[36px]
+    flex
+    justify-center
+    items-center
+    rounded-[8px]
+    bg-[#111827]
+    text-white
+    cursor-pointer
+    ${className ?? ""}
+  `} onClick={onClick}>
+    {icon} {children} </button></>
 }

@@ -8,22 +8,24 @@ import { BiShield } from "react-icons/bi";
 export const DashboardPage = () => {
   const userData = useAppSelector(state => state.auth.user)
   const [aside, setOpenAside] = useState(false)
+  const now = new Date()
+  const nowTime = now.toLocaleDateString('uk-UA')
   const handleAside = () =>
     setOpenAside(prev=>!prev)
   return (<>
     <div className="flex justify-between items-center  mb-[26px] h-[57px]" >
       <PageTitle
       text={`Hello,${userData?.first_name}!`}
-        description={userData?.registration_date} />
-      <div className="flex    ">
-        <ButtonPage
-         
-          name={'Change role'}
-          icon={<BiShield className="mr-[8px]" />} />
-        <ButtonPage
+        description={nowTime} />
+      <div className="flex  gap-4  ">
+        <ButtonPage className="pl-[12px] pr-[12px]"
+       
+          icon={<BiShield className="mr-[8px]" />} >
+          Change role</ButtonPage>
+        <ButtonPage className="pl-[12px] pr-[12px]"
            onClick={handleAside}
-          name={'Add user'}
-          icon={<BiPlus className="mr-[8px]" />} />
+          
+          icon={<BiPlus className="mr-[8px]" />} >Invite a member</ButtonPage>
       </div>
      
     </div>

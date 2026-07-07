@@ -10,12 +10,13 @@ export const Header: React.FC = () => {
   console.log(user,'sdfsdf')
   return (
     <>
-      <div className="w-full flex justify-between  h-[92px] pl-[40px] pr-[40px] pt-[24px] pb-[24px] ">
+      <div className="w-full  flex justify-between  h-[92px] pl-[40px] pr-[40px] pt-[24px] pb-[24px] ">
         <Input
           name="search"
           // value={search}
           type="search"
           placeholder="Search patients, doctors, appointments..."
+          className="w-[400px]"
           // onChange={(e)=>dispatch(setSearch(e.target.value))}
         />
         <div className="flex justify-between items-center">

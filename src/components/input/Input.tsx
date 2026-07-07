@@ -13,6 +13,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   register?: UseFormRegister<FieldValues>;
   rules?: RegisterOptions;
   error?: string;
+  inputClassName?: string;
 };
 
 export const Input: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const Input: React.FC<Props> = ({
   type,
   name,
   className,
+  inputClassName,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,21 +33,17 @@ export const Input: React.FC<Props> = ({
     register && name ? register(name, rules) : {};
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className ?? ""}`}>
       {label && (
         <label
           htmlFor={name}
-          className="font-[Inter] font-medium text-[14px] mb-[10px]"
+          className="mb-[10px] font-[Inter] font-medium text-[14px]"
         >
           {label}
         </label>
       )}
 
-      <div
-        className={`relative ${
-          error ? "mb-[10px]" : "mb-[25px]"
-        }`}
-      >
+      <div className="relative">
         <input
           id={name}
           type={
@@ -53,14 +51,20 @@ export const Input: React.FC<Props> = ({
               ? "text"
               : type
           }
-          className={
-            className ??
-            `border rounded-[5px] p-2 text-[14px] ${
+          className={`
+            w-full
+            h-[44px]
+            rounded-[5px]
+            border
+            p-2
+            text-[14px]
+            ${
               type === "search"
-                ? "w-[365px] pl-10"
-                : "w-full h-[44px] pr-10"
-            }`
-          }
+                ? "pl-10"
+                : "pr-10"
+            }
+            ${inputClassName ?? ""}
+          `}
           {...props}
           {...registerProps}
         />
@@ -87,11 +91,10 @@ export const Input: React.FC<Props> = ({
       </div>
 
       {error && (
-        <p className="text-[13px] mb-[16px] text-red-500">
+        <p className="mt-2 text-[13px] text-red-500">
           {error}
         </p>
       )}
     </div>
   );
 };
-

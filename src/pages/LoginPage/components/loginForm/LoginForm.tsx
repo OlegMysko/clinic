@@ -70,7 +70,7 @@ export const LoginForm = () => {
 
       <button
         type="submit"
-        className="w-full h-[44px] 
+        className="w-full h-[44px]  mt-[32px]
       rounded-[5px] text-[white] bg-[#111827] hover:bg-[black]"
       >
         Log in
