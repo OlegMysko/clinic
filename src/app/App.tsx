@@ -17,7 +17,7 @@ export const App: React.FC = () => {
       </div>
       <div className='flex-1 flex flex-col'>
         <Header /> 
-        <main className="flex-1 p-6 overflow-auto bg-[#F3F4F6] ">
+        <main className="flex-1 pt-[24px] pl-[40px] pr-[40px]  overflow-auto bg-[#F3F4F6]  ">
           <Outlet/>
         </main>
       </div>
