@@ -2,6 +2,7 @@ import { useAppSelector } from "@/app/store/hook"
 import { AsideMenu } from "@/components/asideMenu/AsideMenu";
 import { ButtonPage } from "@/components/button/ButtonsPage"
 import { PageTitle } from "@/components/pageTitle/PageTitle"
+import { UserForm } from "@/features/users/UserForm";
 import { useState } from "react";
 import { BiPlus } from "react-icons/bi";
 import { BiShield } from "react-icons/bi";
@@ -30,9 +31,11 @@ export const DashboardPage = () => {
      
     </div>
     {aside && <AsideMenu
+      
       title={'ADD NEW USER'}
       description={'An invitation will be sent to the specified email'}
-      handleAside={handleAside} />}
+      handleAside={handleAside}
+    forms={<UserForm/>}/>}
     </>
 
   )

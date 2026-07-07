@@ -1,13 +1,14 @@
-import { UserForm } from "@/features/users/UserForm";
+
 import { TfiClose } from "react-icons/tfi";
 import { ButtonPage } from "../button/ButtonsPage";
 type Props = {
   title: string;
   description: string;
   handleAside: () => void;
+  forms:React.JSX.Element
 }
 
-export const AsideMenu:React.FC<Props> = ({ handleAside, title, description }) => {
+export const AsideMenu:React.FC<Props> = ({forms, handleAside, title, description }) => {
   return (
     <>
       
@@ -33,7 +34,7 @@ export const AsideMenu:React.FC<Props> = ({ handleAside, title, description }) =
           </div>
           <button className="w-[32px] h-[32px] flex justify-center items-center " onClick={handleAside}>{<TfiClose />}</button>
         </div>
-        <UserForm />
+        {forms}
         <div className="flex w-full mt-auto gap-[16px]">
           <ButtonPage className="flex-1" onClick={handleAside}>Cancel</ButtonPage>
           <ButtonPage className="flex-1">Send an invitation</ButtonPage>
