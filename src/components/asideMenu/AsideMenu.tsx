@@ -32,10 +32,13 @@ export const AsideMenu:React.FC<Props> = ({forms, handleAside, title, descriptio
             <h1 className="font-[Inter] font-semibold text-[18px] text-[#000000]">{title}</h1>
             <p className="font-medium text-[16px] text-[#6B7280]">{description}</p>
           </div>
-          <button className="w-[32px] h-[32px] flex justify-center items-center " onClick={handleAside}>{<TfiClose />}</button>
+          <button className="w-[32px] h-[32px] flex justify-center items-center cursor-pointer " onClick={handleAside}>{<TfiClose />}</button>
         </div>
-        {forms}
-        <div className="flex w-full mt-auto gap-[16px]">
+        <div className="flex-1 mb-[24px] border-b border-[#D1D5DB] overflow-y-auto" >
+    {forms}
+  </div>
+        
+        <div className="flex w-full mt-auto gap-[16px] ">
           <ButtonPage className="flex-1" onClick={handleAside}>Cancel</ButtonPage>
           <ButtonPage className="flex-1">Send an invitation</ButtonPage>
 

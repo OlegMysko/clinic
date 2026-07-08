@@ -48,7 +48,7 @@ export const LoginForm = () => {
         title="Sign In"
         description="Enter your details to access your personal account."
       />
-
+<section >
       <Input
         name="email"
         label="Email"
@@ -59,6 +59,7 @@ export const LoginForm = () => {
         error={errors.email?.message}
       />
       <Input
+       
         name="password"
         label="Password"
         type="password"
@@ -67,7 +68,7 @@ export const LoginForm = () => {
         rules={loginValidation.password}
         error={errors.password?.message}
       />
-
+</section>
       <button
         type="submit"
         className="w-full h-[44px]  mt-[32px]

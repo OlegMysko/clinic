@@ -1,6 +1,7 @@
 import { AsideMenu } from "@/components/asideMenu/AsideMenu";
 import { ButtonPage } from "@/components/button/ButtonsPage";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
+import { DoctorsForm } from "@/features/doctors/DoctorsForm";
 import { useState } from "react";
 import { BiPlus } from "react-icons/bi";
 
@@ -22,8 +23,9 @@ export const DoctorsPage = () => {
        
   </div>
     {aside && <AsideMenu
+      forms={<DoctorsForm/>}
         title={'ADD NEW DOCTOR'}
-        description={'Fill in the details below'
-}
-        handleAside={handleAside} />} </>
+      description={'Fill in the details below'}
+      handleAside={handleAside} />}
+  </>
 }
