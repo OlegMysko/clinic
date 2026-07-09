@@ -3,6 +3,10 @@ import { loginValidation } from "../auth/model/login.validation"
 import { FiUser } from "react-icons/fi";
 import { Select } from "@/components/select/Select";
 import { doctorSpecialties } from "@/features/doctors/model/specialties"
+import { CheckboxGroup } from "@/components/checkBoxGroup/CheskBoxGroup";
+import { workingDays } from "./model/workingDays";
+import { RadioGroup } from "@/components/radioButtonGroup/RadioButtonGroup";
+import { employmentTypes } from "./model/employmentTypes";
 export const DoctorsForm = () => {
   return <>
    <div className="w-full">
@@ -41,7 +45,7 @@ export const DoctorsForm = () => {
               />
           </div>
          
-          <div className="flex gap-4 mb-[24px]">
+          <div className="flex gap-4 ">
             <Select
               name={"speciality"}
               label={"Speciality *"}
@@ -57,36 +61,18 @@ export const DoctorsForm = () => {
                 placeholder="E.g. 10"
               />
           </div>
-        <label className="block mb-[10px]">Type *</label>
+   
 
-<div className="flex gap-6 mb-[24px]">
-  <label
-    htmlFor="fulltime"
-    className="flex flex-1 cursor-pointer items-center gap-2 rounded-[8px] border p-[12px] h-[44px]"
-  >
-    <input
-      id="fulltime"
-      type="radio"
-      name="employmentType"
-      value="Full-time"
-    />
-    <span>Full-time</span>
-  </label>
 
-  <label
-    htmlFor="parttime"
-    className="flex flex-1 cursor-pointer items-center gap-2 rounded-[8px] border p-[12px] h-[44px]"
-  >
-    <input
-      id="parttime"
-      type="radio"
-      name="employmentType"
-      value="Part-time"
-    />
-    <span>Part-time</span>
-  </label>
-</div>
-          </section>
+ 
+        </section>
+       
+          <RadioGroup
+  name="employmentType"
+  label="Type *"
+  options={employmentTypes}
+/>
+      
   
         
           <section>
@@ -115,6 +101,15 @@ export const DoctorsForm = () => {
             />
         </section>
        
+        <section>
+          <CheckboxGroup
+  name="workingDays"
+  label="Working days *"
+  options={workingDays}
+  disabledOptions={["Sun"]}
+          />
+          <p className="mt-[16px] mb-6 font-[Inter] text-[12px] text-[#6B7280]">Standart hours: 09:00 - 18:00</p>
+        </section>
         </form>
         
          
