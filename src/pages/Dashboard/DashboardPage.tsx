@@ -35,7 +35,7 @@ export const DashboardPage = () => {
       title={'ADD NEW USER'}
       description={'An invitation will be sent to the specified email'}
       handleAside={handleAside}
-    forms={<UserForm/>}/>}
+    forms={<UserForm  handleAside={handleAside}/>}/>}
     </>
 
   )

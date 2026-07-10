@@ -4,11 +4,13 @@ import { useEffect } from "react";
 
 export const AuthLoader = ({ children }) => {
   const dispatch = useAppDispatch();
-  const isInicialized = useAppSelector(state=>state.auth.isInitialized)
+  const isInitialized = useAppSelector(state=>state.auth.isInitialized)
 
     useEffect(() => {
-        dispatch(refreshThunk());
-    }, []);
+  if (!isInitialized) {
+    dispatch(refreshThunk());
+  }
+}, [dispatch, isInitialized]);
 
-    return isInicialized? children: 'not now'
+    return isInitialized? children: 'not now'
 };

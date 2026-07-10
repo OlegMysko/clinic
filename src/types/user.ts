@@ -6,6 +6,7 @@ export type User = {
   role: 'admin' | 'user' | 'doctor' |'superadmin'
   phone_number: string,
   registration_date: Date,
-    source: string
+  source: string,
+  
 
 }

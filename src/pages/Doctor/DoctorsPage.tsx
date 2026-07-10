@@ -23,9 +23,10 @@ export const DoctorsPage = () => {
        
   </div>
     {aside && <AsideMenu
-      forms={<DoctorsForm/>}
+       handleAside={handleAside}
+      forms={<DoctorsForm handleAside={handleAside} />}
         title={'ADD NEW DOCTOR'}
       description={'Fill in the details below'}
-      handleAside={handleAside} />}
+      />}
   </>
 }

@@ -10,7 +10,9 @@ import { employmentTypes } from "./model/employmentTypes";
 export const DoctorsForm = () => {
   return <>
    <div className="w-full">
-        <form className="flex flex-col gap-6 ">
+      <form
+        
+        className="flex flex-col gap-6 " >
         <section>
           <div className="flex">
             <div className="flex justify-center items-center w-[80px] h-[80px] mr-[15px] rounded-[100%] bg-[#E5E7EB]">

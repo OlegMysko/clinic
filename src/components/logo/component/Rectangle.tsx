@@ -29,7 +29,9 @@ export const Rectangle: React.FC<Props> = ({
         borderTopRightRadius: radiusTR,
         borderBottomRightRadius: radiusBR,
         borderBottomLeftRadius: radiusBL,
-        backgroundImage:`url(${image})`,
+        ...(image && {
+    backgroundImage: `url(${image})`,
+  }),
         transform: rotate ? `rotate(-${rotate})` : undefined,
        
     }}></div>
