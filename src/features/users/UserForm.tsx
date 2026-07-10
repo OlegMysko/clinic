@@ -94,7 +94,7 @@ export const UserForm: React.FC<Props> = ({handleAside}) => {
             error={errors.password?.message}
           />
         </section>
-         <div className="flex w-full  gap-[16px] border-t border-[#D1D5DB] ">
+         <div className="flex w-full   gap-[16px] border-t border-[#D1D5DB] ">
           <ButtonPage className="flex-1" onClick={handleAside}>Cancel</ButtonPage>
           <ButtonPage  type="submit" className="flex-1">Send an invitation</ButtonPage>
 

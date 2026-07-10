@@ -23,7 +23,7 @@ export const AsideMenu:React.FC<Props> = ({forms, handleAside, title, descriptio
           w-[633px]
           h-screen
           bg-[#ffff]
-          p-[40px]
+          p-[40px] 
           z-10
         "
       >
@@ -34,7 +34,7 @@ export const AsideMenu:React.FC<Props> = ({forms, handleAside, title, descriptio
           </div>
           <button className="w-[32px] h-[32px] flex justify-center items-center cursor-pointer " onClick={handleAside}>{<TfiClose />}</button>
         </div>
-        <div className="flex-1 mb-[24px]  overflow-y-auto" >
+        <div className="flex-1   overflow-y-auto" >
     {forms}
   </div>
         

@@ -48,6 +48,7 @@ const authSlice = createSlice({
         state.refreshToken = null;
         state.isAuth = false;
         state.isInitialized = true;
+        state.loading = false;
       })
       .addCase(refreshThunk.fulfilled, (state, action) => {
        state.accessToken = action.payload.accessToken
