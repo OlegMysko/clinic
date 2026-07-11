@@ -10,6 +10,8 @@ import { PatientsPage } from "@/pages/Patient/PatientsPage";
 import { AppointmentsPage } from "@/pages/Appointments/AppointmentsPage";
 import { CalendarPage } from "@/pages/Calendar/CalendarPage";
 import { ROUTES } from "@/shared/config/routes";
+import { ActivatePage } from "@/pages/Activation/ActivatePage";
+
 
 
 export const Root: React.FC = () => {
@@ -18,7 +20,7 @@ export const Root: React.FC = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-
+<Route path={ROUTES.ACTIVATE} element={<ActivatePage/>}/>
         <Route path="/" element={<App />}>
           
           <Route element={<ProtectedRoute />}>

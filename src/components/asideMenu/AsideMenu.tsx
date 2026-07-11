@@ -1,6 +1,9 @@
 
 import { TfiClose } from "react-icons/tfi";
 import { ButtonPage } from "../button/ButtonsPage";
+import { useAppSelector } from "@/app/store/hook";
+import { Loader } from "../loader/Loader";
+import { Toaster } from "react-hot-toast";
 type Props = {
   title: string;
   description: string;
@@ -8,13 +11,17 @@ type Props = {
   forms:React.JSX.Element
 }
 
-export const AsideMenu:React.FC<Props> = ({forms, handleAside, title, description }) => {
+export const AsideMenu: React.FC<Props> = ({ forms, handleAside, title, description }) => {
+  
   return (
     <>
       
       <div className="fixed  inset-0 bg-black/50" />
 
-      
+      <Toaster
+       position="top-right"
+  reverseOrder={false}/>
+     
       <aside
         className="
         flex flex-col
@@ -35,7 +42,8 @@ export const AsideMenu:React.FC<Props> = ({forms, handleAside, title, descriptio
           <button className="w-[32px] h-[32px] flex justify-center items-center cursor-pointer " onClick={handleAside}>{<TfiClose />}</button>
         </div>
         <div className="flex-1   overflow-y-auto" >
-    {forms}
+          {forms}
+          
   </div>
         
        

@@ -1,8 +1,9 @@
-import { httpClient } from "@/http/httpClient";
+
 import { accessTokenService } from "@/services/accessTokenService";
 import { authService } from "@/services/authService";
 import { refreshTokenService } from "@/services/refreshTokenService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getErrorMessage } from "../errors/getError";
 
 export const logoutThunk = createAsyncThunk(
   "accounts/logout",
@@ -16,8 +17,9 @@ export const logoutThunk = createAsyncThunk(
 
       await authService.logout(refreshToken);
       await new Promise(resolve => setTimeout(resolve, 3000));
+
     } catch (e) {
-      return thunkApi.rejectWithValue(`Logout failed:${e}`);
+      return thunkApi.rejectWithValue(getErrorMessage(e));
     } finally {
       accessTokenService.remove();
       refreshTokenService.remove();

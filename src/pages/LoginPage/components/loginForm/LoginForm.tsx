@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/input/Input";
 import { LoginTitle } from "../title/LoginTitle";
-import { loginValidation } from "@/features/auth/model/login.validation";
+import { formValidation } from "@/features/auth/model/form.validation";
 import { useAppDispatch } from "@/app/store/hook";
 import { useNavigate } from "react-router-dom";
 import { loginThunk } from "@/features/auth/authThunk";
-
-
+import toast from "react-hot-toast";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -23,22 +22,20 @@ export const LoginForm = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     console.log("SUBMIT", data);
-    
-  try { await dispatch(
-      loginThunk({
-        email: data.email,
-        password: data.password
-     })
-  ).unwrap()
-    navigate('/dashboard')
-    } 
-  catch (e) {
-    console.log(e)
-    
+
+    try {
+      await dispatch(
+        loginThunk({
+          email: data.email,
+          password: data.password,
+        }),
+      ).unwrap();
+      navigate("/dashboard");
+    } catch (e) {
+      toast.error(e as string);
     }
-    
- }
-  
+  };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -48,27 +45,26 @@ export const LoginForm = () => {
         title="Sign In"
         description="Enter your details to access your personal account."
       />
-<section >
-      <Input
-        name="email"
-        label="Email"
-        type="email"
-        placeholder="example@email.com"
-        register={register}
-        rules={loginValidation.email}
-        error={errors.email?.message}
-      />
-      <Input
-       
-        name="password"
-        label="Password"
-        type="password"
-        placeholder="Enter your password"
-        register={register}
-        rules={loginValidation.password}
-        error={errors.password?.message}
-      />
-</section>
+      <section>
+        <Input
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="example@email.com"
+          register={register}
+          rules={formValidation.email}
+          error={errors.email?.message}
+        />
+        <Input
+          name="password"
+          label="Password"
+          type="password"
+          placeholder="Enter your password"
+          register={register}
+          rules={formValidation.password}
+          error={errors.password?.message}
+        />
+      </section>
       <button
         type="submit"
         className="w-full h-[44px]  mt-[32px]

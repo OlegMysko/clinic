@@ -3,6 +3,7 @@ import { authService } from "@/services/authService"
 import { refreshTokenService } from "@/services/refreshTokenService";
 import { userService } from "@/services/userService";
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import { getErrorMessage } from "../errors/getError";
 
 export const loginThunk = createAsyncThunk(
   "accounts/login",
@@ -19,8 +20,8 @@ export const loginThunk = createAsyncThunk(
       const user = await userService.getCurrentUser()
      
       return {...tokens,user};
-    } catch  {
-      return thunkApi.rejectWithValue('Login failed')
+    } catch (e) {
+      return thunkApi.rejectWithValue(getErrorMessage(e))
     }
     
   }
