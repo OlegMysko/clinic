@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/app/store/hook";
 import { useNavigate } from "react-router-dom";
 import { loginThunk } from "@/features/auth/authThunk";
 import toast from "react-hot-toast";
+import { errorToast } from "@/components/pushAppMessage/PushApp";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ export const LoginForm = () => {
       ).unwrap();
       navigate("/dashboard");
     } catch (e) {
-      toast.error(e as string);
+      errorToast(e as string);
     }
   };
 

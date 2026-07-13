@@ -25,8 +25,8 @@ const doctorSlice = createSlice({
       .addCase(createDoctorThunk.pending, (state) => {
         state.loading = true
       })
-      .addCase(createDoctorThunk.fulfilled, (state, action) => {
-        state.doctors.push(action.payload)
+      .addCase(createDoctorThunk.fulfilled, (state, ) => {
+      
         state.loading = false;
       })
       .addCase(createDoctorThunk.rejected, (state) => {

@@ -1,8 +1,5 @@
 
 import { TfiClose } from "react-icons/tfi";
-import { ButtonPage } from "../button/ButtonsPage";
-import { useAppSelector } from "@/app/store/hook";
-import { Loader } from "../loader/Loader";
 import { Toaster } from "react-hot-toast";
 type Props = {
   title: string;
@@ -18,8 +15,8 @@ export const AsideMenu: React.FC<Props> = ({ forms, handleAside, title, descript
       
       <div className="fixed  inset-0 bg-black/50" />
 
-      <Toaster
-       position="top-right"
+      <Toaster 
+       position="bottom-right"
   reverseOrder={false}/>
      
       <aside

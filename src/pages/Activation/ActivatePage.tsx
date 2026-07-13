@@ -1,4 +1,5 @@
 import { useAppDispatch } from "@/app/store/hook";
+import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
 import { activateAccountThunk } from "@/features/users/activationAccountThunk";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -22,11 +23,11 @@ useEffect(() => {
   dispatch(activateAccountThunk({ email, token }))
     .unwrap()
     .then(() => {
-      toast.success("Account activated");
+      successToast("Account activated");
       navigate("/login");
     })
     .catch((e) => {
-      toast.error(e);
+      errorToast(e);
     });
 }, [dispatch, email, token, navigate]);
 

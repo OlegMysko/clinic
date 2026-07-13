@@ -35,7 +35,7 @@ export const userService = {
     email: string,
     phone_number: number,
     working_days: string[]) => {
-    httpClient.post('doctors/profile', {user_id,
+  return  httpClient.post('doctors/profile', {user_id,
       first_name, last_name, specialization, years_experience,
       employment_type,email,phone_number,working_days
     }, { headers: {

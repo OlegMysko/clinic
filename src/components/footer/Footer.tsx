@@ -3,16 +3,17 @@ import { logoutThunk } from "@/features/auth/logOutThunk";
 import toast from "react-hot-toast";
 import { CiLogout } from "react-icons/ci";
 import { Loader } from "../loader/Loader";
+import { errorToast, successToast } from "../pushAppMessage/PushApp";
 export const Footer: React.FC = () => {
   const dispatch = useAppDispatch();
   const {loading} = useAppSelector(state=>state.auth)
   const handleLogout = async () => {
     try {
       await dispatch(logoutThunk()).unwrap() 
-      toast.success("Logout successfuly")
+      successToast("Logout successfuly")
     }
     catch (e) {
-      toast.error(`${e}`)
+      errorToast(`${e}`)
       
     }
 

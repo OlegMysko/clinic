@@ -13,8 +13,11 @@ import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 import { createDoctorThunk } from "./createDoctorThunk";
 import { useEffect, useState } from "react";
 import { searchUsersThunk } from "../users/searchUserThunk";
-import { Search } from "@/components/seearch/Search";
+import { Search } from "@/components/search/Search";
 import type { User } from "@/types/User";
+import toast from "react-hot-toast";
+import { Loader } from "@/components/loader/Loader";
+import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
 type Props = {
   handleAside: () => void;
 };
@@ -40,7 +43,8 @@ export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
   } = useForm<DoctorFormData>();
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const dispatch = useAppDispatch();
-    const { users , loading} = useAppSelector((state) => state.user);
+  const { users, loading } = useAppSelector((state) => state.user);
+  const { loading: doctorsLoading } = useAppSelector((state) => state.doctor);
 useEffect(() => {
   if (!selectedUser) return;
 
@@ -53,7 +57,7 @@ useEffect(() => {
     try {
       await dispatch(
         createDoctorThunk({
-          user_id: selectedUser?.id,
+          user_id: selectedUser.id,
           first_name: data.firstName,
           last_name: data.lastName,
           specialization: data.specialization,
@@ -64,12 +68,19 @@ useEffect(() => {
           working_days: data.workingDays,
         })
         
-      ); 
-    } catch {}
+      ).unwrap(); 
+      reset()
+      successToast(  <>
+    Doctor created successfully
+    <br />
+    Dr. {selectedUser.first_name} {selectedUser.last_name}
+  </>)
+    } catch (e){
+    errorToast(e as string)}
   };
 
   return (
-    <>
+    <> {doctorsLoading?(<Loader/>):(
       <div className="w-full">
         <form
           className="flex flex-col gap-6 "
@@ -181,7 +192,7 @@ useEffect(() => {
             <Input
               name="phone"
               label="Phone *"
-              type="phone"
+              type="tel"
               placeholder="+38 (0XX) XXX-XXXX"
               register={register}
               rules={formValidation.phone}
@@ -213,6 +224,6 @@ useEffect(() => {
           </div>
         </form>
       </div>
-    </>
+   )} </>
   );
 };

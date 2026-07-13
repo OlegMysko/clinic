@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 import { createUserThunk } from "./createUserThunk";
 import { Loader } from "@/components/loader/Loader";
 import toast from "react-hot-toast";
+import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
 
 type Props = {
   handleAside: () => void;
@@ -38,9 +39,9 @@ export const UserForm: React.FC<Props> = ({ handleAside }) => {
         }),
       ).unwrap();
       reset();
-      toast.success("User created successfully");
+      successToast("User created successfully");
     } catch (e) {
-      toast.error(e as string);
+      errorToast(e as string);
     }
   };
   return (
