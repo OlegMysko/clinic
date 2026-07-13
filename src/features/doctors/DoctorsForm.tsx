@@ -9,52 +9,91 @@ import { RadioGroup } from "@/components/radioButtonGroup/RadioButtonGroup";
 import { employmentTypes } from "./model/employmentTypes";
 import { useForm } from "react-hook-form";
 import { ButtonPage } from "@/components/button/ButtonsPage";
+import { useAppDispatch, useAppSelector } from "@/app/store/hook";
+import { createDoctorThunk } from "./createDoctorThunk";
+import { useEffect, useState } from "react";
+import { searchUsersThunk } from "../users/searchUserThunk";
+import { Search } from "@/components/seearch/Search";
+import type { User } from "@/types/User";
 type Props = {
   handleAside: () => void;
 };
 
-export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
+export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
   type DoctorFormData = {
+    user_id: number;
     firstName: string;
     lastName: string;
     email: string;
     phone: number;
     experience: number;
-    speciality: string;
+    specialization: string;
     employmentType: string;
     workingDays: string[];
   };
   const {
     reset,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<DoctorFormData>();
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const dispatch = useAppDispatch();
+    const { users , loading} = useAppSelector((state) => state.user);
+useEffect(() => {
+  if (!selectedUser) return;
 
-  const onSubmit = (data: DoctorFormData) => {
-    console.log(data)
-  }
+  setValue("firstName", selectedUser.first_name);
+  setValue("lastName", selectedUser.last_name);
+  setValue("email", selectedUser.email);
+}, [selectedUser, setValue]);
+  
+  const onSubmit = async (data: DoctorFormData) => {
+    try {
+      await dispatch(
+        createDoctorThunk({
+          user_id: selectedUser?.id,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          specialization: data.specialization,
+          years_experience: data.experience,
+          employmend_type: data.employmentType,
+          email: data.email,
+          phone_number: data.phone,
+          working_days: data.workingDays,
+        })
+        
+      ); 
+    } catch {}
+  };
 
   return (
     <>
       <div className="w-full">
-        <form className="flex flex-col gap-6 "
-        onSubmit = {handleSubmit(onSubmit)}>
+        <form
+          className="flex flex-col gap-6 "
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <section>
-            <div className="flex">
-              <div className="flex justify-center items-center w-[80px] h-[80px] mr-[15px] rounded-[100%] bg-[#E5E7EB]">
-                <FiUser className="w-[24px] h-[24px]" />
-              </div>
-              <div className="flex flex-col">
-                <h1 className=" font-[Inter]  text-[14px] text-[#2563EB] ">
-                  Upload Photo
-                </h1>
-                <p className="text-[12px] text-[#9CA3AF] ">
-                  An image of the person — best if it has the same light and
-                  height.
-                </p>
-              </div>
-            </div>
+      
+         <Search
+  items={users}
+  loading={loading}
+  onSearch={(value) => dispatch(searchUsersThunk(value))}
+  selectedUser = {selectedUser}
+  onSelect={setSelectedUser}
+  getKey={(user) => user.id}
+  getValue={(user) => `${user.first_name} ${user.last_name}`}
+  renderItem={(user) => (
+    <>
+      <div>{user.first_name} {user.last_name}</div>
+      <div>{user.email}</div>
+    </>
+  )}
+/>
+
+          
           </section>
           <section>
             <p className="mb-[24px] font-[Inter] text-[12px] text-[#6B7280]">
@@ -63,6 +102,7 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
 
             <div className="flex gap-4 mb-[24px]">
               <Input
+                 disabled
                 className="flex-1"
                 name="firstName"
                 label="First name *"
@@ -74,6 +114,7 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
               />
 
               <Input
+               disabled
                 className="flex-1"
                 name="lastName"
                 label="Last name *"
@@ -87,13 +128,13 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
 
             <div className="flex gap-4 ">
               <Select
-                name={"speciality"}
+                name={"specialization"}
                 label={"Speciality *"}
                 placeholder={"Enter speciality"}
                 option={doctorSpecialties}
                 register={register}
-                 rules={formValidation.specialization}
-                error={errors.speciality?.message}
+                rules={formValidation.specialization}
+                error={errors.specialization?.message}
                 className="flex-1"
               />
 
@@ -104,7 +145,7 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
                 type="number"
                 placeholder="E.g. 10"
                 register={register}
-                 rules={formValidation.experience}
+                rules={formValidation.experience}
                 error={errors.experience?.message}
               />
             </div>
@@ -115,8 +156,8 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
             label="Type *"
             options={employmentTypes}
             register={register}
-             rules={formValidation.partTime}
-                error={errors.employmentType?.message}
+            rules={formValidation.partTime}
+            error={errors.employmentType?.message}
           />
 
           <section>
@@ -125,6 +166,7 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
             </p>
 
             <Input
+              disabled
               name="email"
               label="Email *"
               type="email"
@@ -144,7 +186,6 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
               register={register}
               rules={formValidation.phone}
               error={errors.phone?.message}
-
             />
           </section>
 
@@ -162,14 +203,14 @@ export const DoctorsForm: React.FC<Props> = ({handleAside}) => {
               Standart hours: 09:00 - 18:00
             </p>
           </section>
-           <div className="flex w-full   gap-[16px] border-t border-[#D1D5DB] ">
-                        <ButtonPage className="flex-1" onClick={handleAside}>
-                          Cancel
-                        </ButtonPage>
-                        <ButtonPage  type="submit" className="flex-1">
-                          Send an invitation
-                        </ButtonPage>
-                      </div>
+          <div className="flex w-full   gap-[16px] border-t border-[#D1D5DB] ">
+            <ButtonPage className="flex-1" onClick={handleAside}>
+              Cancel
+            </ButtonPage>
+            <ButtonPage type="submit" className="flex-1">
+              Send an invitation
+            </ButtonPage>
+          </div>
         </form>
       </div>
     </>

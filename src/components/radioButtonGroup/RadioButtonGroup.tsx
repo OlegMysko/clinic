@@ -7,7 +7,10 @@ import type {
 type Props = {
   name: string;
   label: string;
-  options: string[];
+  options: {
+    label: string,
+    value:string,
+  };
   register?: UseFormRegister<FieldValues>;
   rules?: RegisterOptions;
   error?: string;
@@ -30,18 +33,18 @@ export const RadioGroup: React.FC<Props> = ({
       <div className="flex gap-4">
         {options.map((option) => (
           <label
-            key={option}
-            htmlFor={`${name}-${option}`}
+            key={option.label}
+            htmlFor={`${name}-${option.label}`}
             className="flex flex-1 cursor-pointer items-center gap-2 rounded-[8px] border p-[12px] h-[44px]"
           >
             <input
-              id={`${name}-${option}`}
+              id={`${name}-${option.label}`}
               type="radio"
-              value={option}
+              value={option.value}
               {...(register ? register(name, rules) : { name })}
             />
 
-            <span>{option}</span>
+            <span>{option.label}</span>
           </label>
         ))}
       </div>

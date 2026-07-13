@@ -17,7 +17,7 @@ const initialState: DoctorsState = {
   loading: false,
   error:null,
 }
-const docrotSlice = createSlice({
+const doctorSlice = createSlice({
   name: 'doctor',
   initialState,
   reducers: {}, extraReducers: (builder) => {
@@ -34,3 +34,5 @@ const docrotSlice = createSlice({
     })
   }
 })
+export const { } = doctorSlice.actions;
+export default doctorSlice.reducer

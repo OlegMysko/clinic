@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/app/store/hook";
 import { activateAccountThunk } from "@/features/users/activationAccountThunk";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 
@@ -30,5 +30,5 @@ useEffect(() => {
     });
 }, [dispatch, email, token, navigate]);
 
-  return <></>;
+  return <> <Toaster/></>;
 };

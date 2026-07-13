@@ -3,10 +3,10 @@ export type User = {
   first_name: string;
   last_name: string;
   email: string;
-  role: 'admin' | 'user' | 'doctor' |'superadmin'
-  phone_number: string,
-  registration_date: Date,
-  source: string,
+  role?: 'admin' | 'user' | 'doctor' |'superadmin'
+  phone_number?: string,
+  registration_date?: Date,
+  source?: string,
   
 
 }

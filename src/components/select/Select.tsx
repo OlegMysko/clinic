@@ -1,25 +1,60 @@
+import type {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from "react-hook-form";
 
-export type Props = {
-  name: string;
+type Props<T extends FieldValues> = {
+  name: Path<T>;
   label: string;
-  option:string[];
+  option: string[];
   placeholder: string;
-  className: string;
-}
-export const Select:React.FC<Props> = ({name,label,option,placeholder,className}) => {
-  return (<div className={`flex flex-col ${className ?? ""}`}>
-  <label htmlFor={name} className="mb-[10px] text-[14px] font-medium">
-    {label}
-  </label>
+  className?: string;
 
-  <select id={name} name={name} defaultValue="" className="h-[44px] rounded-[5px] border border-gray-300 px-3">
-    <option value="" disabled>{placeholder}</option>
+  register: UseFormRegister<T>;
+  rules?: RegisterOptions<T>;
+  error?: string;
+};
 
-    {option.map((specialty) => (
-      <option key={specialty} value={specialty}>
-        {specialty}
-      </option>
-    ))}
-  </select>
-</div>)
-}
+export const Select = <T extends FieldValues>({
+  name,
+  label,
+  option,
+  placeholder,
+  className,
+  register,
+  rules,
+  error,
+}: Props<T>) => {
+  return (
+    <div className={`flex flex-col ${className ?? ""}`}>
+      <label htmlFor={name} className="mb-[10px] text-[14px] font-medium">
+        {label}
+      </label>
+
+      <select
+        id={name}
+        defaultValue=""
+        {...register(name, rules)}
+        className="h-[44px] rounded-[5px] border border-gray-300 px-3"
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+
+        {option.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+
+      {error && (
+        <span className="mt-1 text-sm text-red-500">
+          {error}
+        </span>
+      )}
+    </div>
+  );
+};
