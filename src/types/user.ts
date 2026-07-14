@@ -1,11 +1,11 @@
 export type User = {
   id: number;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   role?: 'admin' | 'user' | 'doctor' |'superadmin'
-  phone_number?: string,
-  registration_date?: Date,
+  phoneNumber?: string,
+  registrationDate?: Date,
   source?: string,
   
 

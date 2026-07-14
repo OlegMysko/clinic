@@ -1,7 +1,6 @@
 import { Input } from "@/components";
 import { formValidation } from "../auth/model/form.validation";
 import { Select } from "@/components/select/Select";
-import { doctorSpecialties } from "@/features/doctors/model/specialties";
 import { CheckboxGroup } from "@/components/checkBoxGroup/CheskBoxGroup";
 import { workingDays } from "./model/workingDays";
 import { RadioGroup } from "@/components/radioButtonGroup/RadioButtonGroup";
@@ -16,22 +15,15 @@ import { Search } from "@/components/search/Search";
 import type { User } from "@/types/User";
 import { Loader } from "@/components/loader/Loader";
 import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
+import type { DoctorFormData } from "@/types/dotorFormData";
+import { specializations } from "./model/specialties";
+
 type Props = {
   handleAside: () => void;
 };
 
 export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
-  type DoctorFormData = {
-    userId: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: number;
-    experience: number;
-    specialization: string;
-    employmentType: string;
-    workingDays: string[];
-  };
+
   const {
     reset,
     register,
@@ -53,19 +45,17 @@ export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
   setValue("email", selectedUser.email);
 }, [selectedUser, setValue]);
   console.log(selectedUser)
+ 
   const onSubmit = async (data: DoctorFormData) => {
+     if (!selectedUser) {
+    return;
+  }
     try {
       await dispatch(
         createDoctorThunk({
+          ...data,
           userId: selectedUser.id,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          specialization: data.specialization,
-          yearsExperience: data.experience,
-          employmendType: data.employmentType,
-          email: data.email,
-          phoneNumber: data.phone,
-          workingDays: data.workingDays,
+         
         })
         
       ).unwrap(); 
@@ -142,7 +132,7 @@ export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
                 name={"specialization"}
                 label={"Speciality *"}
                 placeholder={"Enter speciality"}
-                option={doctorSpecialties}
+                option={specializations}
                 register={register}
                 rules={formValidation.specialization}
                 error={errors.specialization?.message}

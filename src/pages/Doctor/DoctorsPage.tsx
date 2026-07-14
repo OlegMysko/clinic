@@ -9,7 +9,15 @@ export const DoctorsPage = () => {
    const [aside, setOpenAside] = useState(false)
   const handleAside = () =>
       setOpenAside(prev=>!prev)
-  return <> <div className="flex justify-between items-center  mb-[26px] h-[57px]" >
+  return <>
+    {aside && <AsideMenu
+       handleAside={handleAside}
+      forms={<DoctorsForm handleAside={handleAside} />}
+        title={'ADD NEW DOCTOR'}
+      description={'Fill in the details below'}
+    />}
+    
+    <div className="flex justify-between items-center  mb-[26px] h-[57px]" >
         <PageTitle
         text={`All doctors`}
           description={'showing 128 doctors'} />
@@ -22,11 +30,6 @@ export const DoctorsPage = () => {
         </div>
        
   </div>
-    {aside && <AsideMenu
-       handleAside={handleAside}
-      forms={<DoctorsForm handleAside={handleAside} />}
-        title={'ADD NEW DOCTOR'}
-      description={'Fill in the details below'}
-      />}
+   
   </>
 }

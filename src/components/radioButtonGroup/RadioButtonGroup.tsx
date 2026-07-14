@@ -1,29 +1,34 @@
 import type {
   FieldValues,
+  Path,
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
 
-type Props = {
-  name: string;
+type RadioOption = {
   label: string;
-  options: {
-    label: string,
-    value:string,
-  };
-  register?: UseFormRegister<FieldValues>;
-  rules?: RegisterOptions;
+  value: string;
+};
+
+type Props<T extends FieldValues> = {
+  name: Path<T>;
+  label: string;
+  options: RadioOption[];
+
+  register?: UseFormRegister<T>;
+  rules?: RegisterOptions<T>;
+
   error?: string;
 };
 
-export const RadioGroup: React.FC<Props> = ({
+export function RadioGroup<T extends FieldValues> ({
   name,
   label,
   options,
   register,
   rules,
   error,
-}) => {
+}:Props<T>)  {
   return (
     <div className="flex flex-col">
       <label className="mb-[10px] font-[Inter] font-medium text-[14px]">

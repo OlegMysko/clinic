@@ -1,20 +1,21 @@
 import type {
   FieldValues,
+  Path,
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
 
-type Props = {
-  name: string;
+type Props<T extends FieldValues> = {
+  name: Path<T>;
   label: string;
   options: string[];
   disabledOptions?: string[];
-  register?: UseFormRegister<FieldValues>;
-  rules?: RegisterOptions;
+  register?: UseFormRegister<T>;
+  rules?: RegisterOptions<T, Path<T>>;
   error?: string;
 };
 
-export const CheckboxGroup: React.FC<Props> = ({
+export function CheckboxGroup<T extends FieldValues>({
   name,
   label,
   options,
@@ -22,7 +23,7 @@ export const CheckboxGroup: React.FC<Props> = ({
   register,
   rules,
   error,
-}) => {
+}: Props<T>) {
   return (
     <div className="flex flex-col">
       <label className="mb-[10px] font-[Inter] font-medium text-[14px]">

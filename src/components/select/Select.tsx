@@ -5,10 +5,15 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 
+type SelectOption = {
+  label: string;
+  value: string;
+};
+
 type Props<T extends FieldValues> = {
   name: Path<T>;
   label: string;
-  option: string[];
+  option: SelectOption[];
   placeholder: string;
   className?: string;
 
@@ -44,8 +49,8 @@ export const Select = <T extends FieldValues>({
         </option>
 
         {option.map((item) => (
-          <option key={item} value={item}>
-            {item}
+          <option key={item.value} value={item.value}>
+            {item.label}
           </option>
         ))}
       </select>

@@ -8,9 +8,9 @@ type Props<T> = {
   loading: boolean;
   placeholder?: string;
 
-  onSearch: (value: string) => void;
+  onSearch: (value: T) => void;
   onSelect: (item: T) => void;
-  selectedUser: User;
+  selectedUser: User | null;
   getKey: (item: T) => React.Key;
   renderItem: (item: T) => React.ReactNode;
   getValue: (item: T) => string;
@@ -28,18 +28,19 @@ export function Search<T>({
   getValue,
 }: Props<T>) {
   const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(false);
+  const open = query.trim().length >= 3;
 
   useEffect(() => {
-    if (query.trim().length < 3) {
-      setOpen(false);
-      return;
+    if (!open) {
+      return
     }
+     
+    
 
     const timer = setTimeout(() => {
       onSearch(query);
-      setOpen(true);
-    }, 400);
+      
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [query]);
@@ -71,7 +72,7 @@ export function Search<T>({
                 onClick={() => {
                   onSelect(item);
                   setQuery(getValue(item));
-                  setOpen(false);
+               
                 }}
               >
                 {renderItem(item)}

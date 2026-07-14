@@ -43,10 +43,11 @@ export const formValidation = {
       message: "Experience cannot exceed 60 years",
     },
     valueAsNumber: true,
-  }, workingDays: {
-    validate: (value: string[]) =>
-      value.length > 0 || "Select at least one working day",
   },
+workingDays: {
+  validate: (value) =>
+    value.length > 0 || "Select at least one working day",
+},
 
   partTime: {
     required: "Please select employment type",

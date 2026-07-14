@@ -1,11 +1,14 @@
-export const doctorSpecialties = [
-   "Orthodontist",
-  "Endodontist",
-  "Periodontist",
-  "Prosthodontist",
-  "Oral Surgeon",
-  "Pediatric Dentist",
-  "Dental Hygienist",
-  "Implantologist",
-  "Cosmetic Dentist",
-]as const
+export const specializations = [
+  {
+    label: "Orthodontist",
+    value: "orthodontist",
+  },
+  {
+    label: "Therapist",
+    value: "therapist",
+  },
+  {
+    label: "Surgeon",
+    value: "surgeon",
+  },
+];

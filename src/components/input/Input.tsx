@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type {
   FieldValues,
+  Path,
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
@@ -8,15 +9,17 @@ import type {
 import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
-  label?: string;
-  register?: UseFormRegister<FieldValues>;
-  rules?: RegisterOptions;
-  error?: string;
-  inputClassName?: string;
-};
+type InputProps<T extends FieldValues> =
+  React.InputHTMLAttributes<HTMLInputElement> & {
+    name: Path<T>;
+    label?: string;
+    register?: UseFormRegister<T>;
+    rules?: RegisterOptions<T>;
+    error?: string;
+    inputClassName?: string;
+  };
 
-export const Input: React.FC<Props> = ({
+export function Input<T extends FieldValues>({
   label,
   register,
   rules,
@@ -26,11 +29,11 @@ export const Input: React.FC<Props> = ({
   className,
   inputClassName,
   ...props
-}) => {
+}: InputProps<T>) {
   const [showPassword, setShowPassword] = useState(false);
 
   const registerProps =
-    register && name ? register(name, rules) : {};
+    register ? register(name, rules) : {};
 
   return (
     <div className={`flex flex-col ${className ?? ""}`}>
@@ -58,11 +61,7 @@ export const Input: React.FC<Props> = ({
             border
             p-2
             text-[14px]
-            ${
-              type === "search"
-                ? "pl-10"
-                : "pr-10"
-            }
+            ${type === "search" ? "pl-10" : "pr-10"}
             ${inputClassName ?? ""}
           `}
           {...props}
@@ -97,4 +96,4 @@ export const Input: React.FC<Props> = ({
       )}
     </div>
   );
-};
+}

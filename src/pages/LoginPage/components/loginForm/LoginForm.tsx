@@ -6,30 +6,23 @@ import { useAppDispatch } from "@/app/store/hook";
 import { useNavigate } from "react-router-dom";
 import { loginThunk } from "@/features/auth/authThunk";
 import { errorToast } from "@/components/pushAppMessage/PushApp";
+import type { LoginData } from "@/types/loginFormData";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  type LoginFormData = {
-    email: string;
-    password: string;
-  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>();
+  } = useForm<LoginData>();
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: LoginData) => {
     console.log("SUBMIT", data);
 
     try {
-      await dispatch(
-        loginThunk({
-          email: data.email,
-          password: data.password,
-        }),
-      ).unwrap();
+      await dispatch(loginThunk(data)).unwrap();
       navigate("/dashboard");
     } catch (e) {
       errorToast(e as string);
@@ -45,7 +38,7 @@ export const LoginForm = () => {
         title="Sign In"
         description="Enter your details to access your personal account."
       />
-      <section >
+      <section>
         <Input
           className="mb-[16px]"
           name="email"

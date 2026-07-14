@@ -6,37 +6,27 @@ import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 import { createUserThunk } from "./createUserThunk";
 import { Loader } from "@/components/loader/Loader";
 import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
+import type { UserData } from "@/types/userFormData";
 
 type Props = {
   handleAside: () => void;
 };
+
 export const UserForm: React.FC<Props> = ({ handleAside }) => {
-  type UserFromData = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-  };
   const {
     reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserFromData>();
+  } = useForm<UserData>();
+
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.user);
 
-  const onSubmit = async (data: UserFromData) => {
+  const onSubmit = async (data: UserData) => {
     console.log("UserSubmit", data);
     try {
-      await dispatch(
-        createUserThunk({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          password: data.password,
-        }),
-      ).unwrap();
+      await dispatch(createUserThunk(data)).unwrap();
       reset();
       successToast("User created successfully");
     } catch (e) {
