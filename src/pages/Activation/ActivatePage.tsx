@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/app/store/hook";
 import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
 import { activateAccountThunk } from "@/features/users/activationAccountThunk";
 import { useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 

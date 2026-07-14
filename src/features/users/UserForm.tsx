@@ -5,7 +5,6 @@ import { ButtonPage } from "@/components/button/ButtonsPage";
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 import { createUserThunk } from "./createUserThunk";
 import { Loader } from "@/components/loader/Loader";
-import toast from "react-hot-toast";
 import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
 
 type Props = {

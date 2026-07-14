@@ -5,7 +5,6 @@ import { formValidation } from "@/features/auth/model/form.validation";
 import { useAppDispatch } from "@/app/store/hook";
 import { useNavigate } from "react-router-dom";
 import { loginThunk } from "@/features/auth/authThunk";
-import toast from "react-hot-toast";
 import { errorToast } from "@/components/pushAppMessage/PushApp";
 
 export const LoginForm = () => {
@@ -46,8 +45,9 @@ export const LoginForm = () => {
         title="Sign In"
         description="Enter your details to access your personal account."
       />
-      <section>
+      <section >
         <Input
+          className="mb-[16px]"
           name="email"
           label="Email"
           type="email"

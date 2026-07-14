@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 import { logoutThunk } from "@/features/auth/logOutThunk";
-import toast from "react-hot-toast";
 import { CiLogout } from "react-icons/ci";
 import { Loader } from "../loader/Loader";
 import { errorToast, successToast } from "../pushAppMessage/PushApp";

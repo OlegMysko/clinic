@@ -4,38 +4,39 @@ import { getErrorMessage } from "../errors/getError";
 
 export const createDoctorThunk = createAsyncThunk(
   "doctors/profile",
-  async ({ user_id,
-    first_name,
-    last_name,
+  async ({
+    userId,
+    firstName,
+    lastName,
     specialization,
-    years_experience,
-    employmend_type,
+    yearsExperience,
+    employmendType,
     email,
-    phone_number,
-    working_days }: {
-   user_id: number;
-  first_name: string,
-    last_name: string,
+    phoneNumber,
+    workingDays }: {
+   userId: number;
+  firstName: string,
+    lastName: string,
     specialization: string,
-  years_experience: number,
-      employmend_type: string,
+  yearsExperience: number,
+      employmendType: string,
   email:string,
-  phone_number: number,
+  phoneNumber: number,
  
-  working_days: string[],}, thunkApi) => {
+  workingDays: string[],}, thunkApi) => {
     
     try {
       await userService.createDoctor(
-        user_id,
-        first_name,
-        last_name,
+        userId,
+        firstName,
+        lastName,
         specialization,
-        years_experience,
-        employmend_type,
+        yearsExperience,
+        employmendType,
         email,
-        phone_number,
+        phoneNumber,
 
-        working_days)
+        workingDays)
     } catch (e) {
       return thunkApi.rejectWithValue(getErrorMessage(e))
 

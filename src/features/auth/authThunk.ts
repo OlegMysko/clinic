@@ -15,8 +15,8 @@ export const loginThunk = createAsyncThunk(
     }, thunkApi) => {
     try {
       const tokens = await authService.login(email, password)
-      accessTokenService.save(tokens.access_token)
-      refreshTokenService.save(tokens.refresh_token)
+      accessTokenService.save(tokens.accessToken)
+      refreshTokenService.save(tokens.refreshToken)
       const user = await userService.getCurrentUser()
      
       return {...tokens,user};

@@ -1,6 +1,5 @@
 import { Input } from "@/components";
 import { formValidation } from "../auth/model/form.validation";
-import { FiUser } from "react-icons/fi";
 import { Select } from "@/components/select/Select";
 import { doctorSpecialties } from "@/features/doctors/model/specialties";
 import { CheckboxGroup } from "@/components/checkBoxGroup/CheskBoxGroup";
@@ -15,7 +14,6 @@ import { useEffect, useState } from "react";
 import { searchUsersThunk } from "../users/searchUserThunk";
 import { Search } from "@/components/search/Search";
 import type { User } from "@/types/User";
-import toast from "react-hot-toast";
 import { Loader } from "@/components/loader/Loader";
 import { errorToast, successToast } from "@/components/pushAppMessage/PushApp";
 type Props = {
@@ -24,7 +22,7 @@ type Props = {
 
 export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
   type DoctorFormData = {
-    user_id: number;
+    userId: number;
     firstName: string;
     lastName: string;
     email: string;
@@ -41,31 +39,33 @@ export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<DoctorFormData>();
+
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const dispatch = useAppDispatch();
   const { users, loading } = useAppSelector((state) => state.user);
   const { loading: doctorsLoading } = useAppSelector((state) => state.doctor);
-useEffect(() => {
+
+  useEffect(() => {
   if (!selectedUser) return;
 
-  setValue("firstName", selectedUser.first_name);
-  setValue("lastName", selectedUser.last_name);
+  setValue("firstName", selectedUser.firstName);
+  setValue("lastName", selectedUser.lastName);
   setValue("email", selectedUser.email);
 }, [selectedUser, setValue]);
-  
+  console.log(selectedUser)
   const onSubmit = async (data: DoctorFormData) => {
     try {
       await dispatch(
         createDoctorThunk({
-          user_id: selectedUser.id,
-          first_name: data.firstName,
-          last_name: data.lastName,
+          userId: selectedUser.id,
+          firstName: data.firstName,
+          lastName: data.lastName,
           specialization: data.specialization,
-          years_experience: data.experience,
-          employmend_type: data.employmentType,
+          yearsExperience: data.experience,
+          employmendType: data.employmentType,
           email: data.email,
-          phone_number: data.phone,
-          working_days: data.workingDays,
+          phoneNumber: data.phone,
+          workingDays: data.workingDays,
         })
         
       ).unwrap(); 
@@ -73,7 +73,7 @@ useEffect(() => {
       successToast(  <>
     Doctor created successfully
     <br />
-    Dr. {selectedUser.first_name} {selectedUser.last_name}
+    Dr. {selectedUser.firstName} {selectedUser.lastName}
   </>)
     } catch (e){
     errorToast(e as string)}
@@ -95,10 +95,10 @@ useEffect(() => {
   selectedUser = {selectedUser}
   onSelect={setSelectedUser}
   getKey={(user) => user.id}
-  getValue={(user) => `${user.first_name} ${user.last_name}`}
+  getValue={(user) => `${user.firstName} ${user.lastName}`}
   renderItem={(user) => (
     <>
-      <div>{user.first_name} {user.last_name}</div>
+      <div>{user.firstName} {user.lastName}</div>
       <div>{user.email}</div>
     </>
   )}

@@ -11,8 +11,8 @@ export const userService = {
   
   getAllDoctors: () => httpClient.get('doctors'),
   
-  register: (first_name: string, last_name: string, email: string, password: string) => {
-  return  httpClient.post('accounts/register', { first_name, last_name, email, password }, {
+  register: (firstName: string, lastName: string, email: string, password: string) => {
+  return  httpClient.post('accounts/register', { firstName, lastName, email, password }, {
       headers: {
         Authorization: `Bearer ${accessTokenService.get()}`
       }
@@ -26,18 +26,18 @@ export const userService = {
   },
  
   createDoctor: (
-    user_id: number,
-    first_name: string,
-    last_name: string,
+    userId: number,
+    firstName: string,
+    lastName: string,
     specialization: string,
-    years_experience: number,
-    employment_type: string,
+    yearsExperience: number,
+    employmentType: string,
     email: string,
-    phone_number: number,
-    working_days: string[]) => {
-  return  httpClient.post('doctors/profile', {user_id,
-      first_name, last_name, specialization, years_experience,
-      employment_type,email,phone_number,working_days
+    phoneNumber: number,
+    workingDays: string[]) => {
+  return  httpClient.post('doctors/profile', {userId,
+      firstName, lastName, specialization, yearsExperience,
+      employmentType,email,phoneNumber,workingDays
     }, { headers: {
         Authorization: `Bearer ${accessTokenService.get()}`
       }})

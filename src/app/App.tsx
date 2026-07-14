@@ -2,16 +2,14 @@
 import { Footer } from '@/components/footer/Footer';
 import { Header } from '@/components/header/Header';
 import { NavBar } from '@/components/navBar/NavBar';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import "tailwindcss";
-import { useAppSelector } from './store/hook';
-import { FullScreenLoader } from '@/components/loader/FullScreenLoader';
+
 
 
 
 export const App: React.FC = () => {
- const {loading} = useAppSelector(state=>state.auth.loading)
  
   return (<> 
     <div className='flex  h-screen' >

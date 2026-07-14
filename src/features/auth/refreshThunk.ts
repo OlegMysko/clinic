@@ -16,12 +16,12 @@ export const refreshThunk = createAsyncThunk(
 
       const token = await authService.refresh(refreshToken);
 
-      accessTokenService.save(token.access_token);
+      accessTokenService.save(token.accessToken);
 
       const user = await userService.getCurrentUser();
 
       return {
-        accessToken: token.access_token,
+        accessToken: token.accessToken,
         user,
       };
     } catch {

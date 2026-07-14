@@ -16,7 +16,7 @@ export const logoutThunk = createAsyncThunk(
       }
 
       await authService.logout(refreshToken);
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      
 
     } catch (e) {
       return thunkApi.rejectWithValue(getErrorMessage(e));

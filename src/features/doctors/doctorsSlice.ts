@@ -34,5 +34,5 @@ const doctorSlice = createSlice({
     })
   }
 })
-export const { } = doctorSlice.actions;
+export const {} = doctorSlice.actions;
 export default doctorSlice.reducer

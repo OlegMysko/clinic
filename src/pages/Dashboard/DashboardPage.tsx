@@ -16,7 +16,7 @@ export const DashboardPage = () => {
   return (<>
     <div className="flex justify-between items-center  mb-[26px] h-[57px]" >
       <PageTitle
-      text={`Hello,${userData?.first_name}!`}
+      text={`Hello,${userData?.firstName}!`}
         description={nowTime} />
       <div className="flex  gap-4  ">
         <ButtonPage className="pl-[12px] pr-[12px]"
