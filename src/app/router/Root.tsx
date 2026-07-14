@@ -11,6 +11,7 @@ import { AppointmentsPage } from "@/pages/Appointments/AppointmentsPage";
 import { CalendarPage } from "@/pages/Calendar/CalendarPage";
 import { ROUTES } from "@/shared/config/routes";
 import { ActivatePage } from "@/pages/Activation/ActivatePage";
+import { DoctorDetailsPage } from "@/pages/DoctorDetails/DoctorDetailsPage";
 
 
 
@@ -27,7 +28,8 @@ export const Root: React.FC = () => {
             <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />
             <Route path={ROUTES.REMINDER} element={<ReminderPage />} />
             <Route path={ROUTES.PATIENT} element={<PatientsPage />} />
-            <Route path={ROUTES.DOCTORS} element={<DoctorsPage/>} />
+            <Route path={ROUTES.DOCTORS} element={<DoctorsPage />} />
+            <Route path={ROUTES.DETAILS} element={<DoctorDetailsPage/>}/>
             <Route path={ROUTES.APPOINTMENTS} element={<AppointmentsPage/>} />
             <Route path={ROUTES.CALENDAR} element={<CalendarPage/>} />
           </Route>

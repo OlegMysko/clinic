@@ -3,6 +3,7 @@ import { httpClient } from "../http/httpClient";
 import { accessTokenService } from "./accessTokenService";
 import type { UserData } from "@/types/userFormData";
 import type { DoctorFormData } from "@/types/dotorFormData";
+import type { DoctorQuery } from "@/features/doctors/model/DoctorQuery";
 
 export const userService = {
   getCurrentUser: (): Promise<User> => httpClient.get("accounts/users/me"),
@@ -10,7 +11,28 @@ export const userService = {
   getAllUsers: (search?: string): Promise<User[]> =>
     httpClient.get("accounts/users", { params: { search } }),
 
-  getAllDoctors: () => httpClient.get("doctors"),
+ getAllDoctors: (query: DoctorQuery) => {
+  const params: Record<string, string | number> = {
+    page: query.page,
+    page_size: query.pageSize,
+    sort_by: query.sortBy,
+    sort_order: query.sortOrder,
+  };
+
+  if (query.search) {
+    params.search = query.search;
+  }
+
+  if (query.specialization) {
+    params.specialization = query.specialization;
+  }
+
+  if (query.employmentType) {
+    params.employment_type = query.employmentType;
+  }
+
+  return httpClient.get("doctors", { params });
+},
 
   register: (data: UserData) => {
     return httpClient.post("accounts/register", data, {

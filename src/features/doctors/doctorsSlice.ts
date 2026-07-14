@@ -1,38 +1,103 @@
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Doctor } from "@/types/doctor";
-import { createSlice } from "@reduxjs/toolkit";
+import type { DoctorQuery } from "./model/DoctorQuery";
 import { createDoctorThunk } from "./createDoctorThunk";
-
+import { getAllDoctorsThunk } from "./getAllDoctorsThunk";
 
 interface DoctorsState {
-  doctors: Doctor[] | [];
-  selectedDoctors: Doctor | null;
-  loading: boolean;
-  error: null | string;
+  doctors: Doctor[];
+  selectedDoctor: Doctor | null;
 
+  loading: boolean;
+  error: string | null;
+
+  total: number;
+
+  query: DoctorQuery;
 }
 
 const initialState: DoctorsState = {
   doctors: [],
-  selectedDoctors: null,
+  selectedDoctor: null,
+
   loading: false,
-  error:null,
-}
+  error: null,
+
+  total: 0,
+
+  query: {
+    search: "",
+    specialization: "",
+    employmentType: "",
+    sortBy: "name",
+    sortOrder: "asc",
+    page: 1,
+    pageSize: 5,
+  },
+};
+
 const doctorSlice = createSlice({
-  name: 'doctor',
+  name: "doctor",
   initialState,
-  reducers: {}, extraReducers: (builder) => {
+
+  reducers: {
+    setQuery(state, action: PayloadAction<Partial<DoctorQuery>>) {
+      state.query = {
+        ...state.query,
+        ...action.payload,
+      };
+    },
+
+    resetQuery(state) {
+      state.query = initialState.query;
+    },
+
+    setSelectedDoctor(state, action: PayloadAction<Doctor | null>) {
+      state.selectedDoctor = action.payload;
+    },
+  },
+
+  extraReducers: (builder) => {
     builder
-      .addCase(createDoctorThunk.pending, (state) => {
-        state.loading = true
-      })
-      .addCase(createDoctorThunk.fulfilled, (state, ) => {
       
+      .addCase(createDoctorThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      .addCase(createDoctorThunk.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(createDoctorThunk.rejected, (state) => {
+
+      .addCase(createDoctorThunk.rejected, (state, action) => {
         state.loading = false;
-    })
-  }
-})
-export const {} = doctorSlice.actions;
-export default doctorSlice.reducer
+        state.error = action.error.message ?? "Failed to create doctor";
+      })
+
+      
+      .addCase(getAllDoctorsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      .addCase(getAllDoctorsThunk.fulfilled, (state, action) => {
+        state.loading = false;
+
+        state.doctors = action.payload.items;
+        state.total = action.payload.total;
+      })
+
+      .addCase(getAllDoctorsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Failed to load doctors";
+      });
+  },
+});
+
+export const {
+  setQuery,
+  resetQuery,
+  setSelectedDoctor,
+} = doctorSlice.actions;
+
+export default doctorSlice.reducer;

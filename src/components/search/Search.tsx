@@ -35,8 +35,6 @@ export function Search<T>({
       return
     }
      
-    
-
     const timer = setTimeout(() => {
       onSearch(query);
       

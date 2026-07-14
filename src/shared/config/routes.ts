@@ -7,5 +7,5 @@ export const ROUTES = {
   APPOINTMENTS: "appointments",
   CALENDAR: "calendar",
   ACTIVATE:"accounts/activate",
-
+DETAILS:'doctors/:doctorId'
 } as const;
