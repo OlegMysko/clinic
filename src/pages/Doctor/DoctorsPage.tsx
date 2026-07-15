@@ -11,7 +11,7 @@ import { Td } from "@/components/table/Td";
 import { Th } from "@/components/table/Th";
 import { UserContacts } from "@/components/userContacts/UserContacts";
 import { DoctorsForm } from "@/features/doctors/DoctorsForm";
-import { setQuery } from "@/features/doctors/doctorsSlice";
+import { setQuery, setSelectedDoctor } from "@/features/doctors/doctorsSlice";
 import { getAllDoctorsThunk } from "@/features/doctors/getAllDoctorsThunk";
 import { specializations } from "@/features/doctors/model/specialties";
 import { useEffect, useState } from "react";
@@ -51,7 +51,7 @@ export const DoctorsPage = () => {
     <div className="flex justify-between items-center  mb-[26px] h-[57px]" >
         <PageTitle
         text={`All doctors`}
-          description={`showing ${doctors.length} doctors`} />
+          description={`showing ${total} doctors`} />
         <div className="flex  gap-4  ">
        
           <ButtonPage className="pl-[12px] pr-[12px]"
@@ -112,7 +112,10 @@ export const DoctorsPage = () => {
          <tbody>
    {doctors.map(doctor=><tr
   key={doctor.id}
-  onClick={() => navigate(`/doctors/${doctor.id}`)}
+     onClick={() => {
+       dispatch(setSelectedDoctor(doctor));
+       navigate(`/doctors/${doctor.id}`)
+     }}
   className=" h-[76px] cursor-pointer hover:bg-[#DCFCE7] transition-colors">
   <Td>{`#${doctor.doctorCode}`}</Td>
 
