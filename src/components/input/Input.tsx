@@ -57,8 +57,7 @@ export function Input<T extends FieldValues>({
           className={`
             w-full
             h-[44px]
-            rounded-[5px]
-            border
+            rounded-[8px]          
             p-2
             text-[14px]
             ${type === "search" ? "pl-10" : "pr-10"}

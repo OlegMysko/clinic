@@ -1,10 +1,11 @@
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 import { AsideMenu } from "@/components/asideMenu/AsideMenu";
 import { ButtonPage } from "@/components/button/ButtonsPage";
-import { UserInfo } from "@/components/header/component/userInfo/UserInfo";
+import { Filter } from "@/components/filter/Filter";
 import { Loader } from "@/components/loader/Loader";
 import { PageTitle } from "@/components/pageTitle/PageTitle";
 import { Pagination } from "@/components/pagination/Pagination";
+import { Sort } from "@/components/sorter/Sort";
 import { Table } from "@/components/table/Table";
 import { Td } from "@/components/table/Td";
 import { Th } from "@/components/table/Th";
@@ -12,13 +13,14 @@ import { UserContacts } from "@/components/userContacts/UserContacts";
 import { DoctorsForm } from "@/features/doctors/DoctorsForm";
 import { setQuery } from "@/features/doctors/doctorsSlice";
 import { getAllDoctorsThunk } from "@/features/doctors/getAllDoctorsThunk";
+import { specializations } from "@/features/doctors/model/specialties";
 import { useEffect, useState } from "react";
 import { BiPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 export const DoctorsPage = () => {
   const [aside, setOpenAside] = useState(false)
-  const { doctors, total, page, pageSize, loading,query} = useAppSelector(state => state.doctor);
+  const { doctors, total, loading,query} = useAppSelector(state => state.doctor);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
@@ -59,6 +61,40 @@ export const DoctorsPage = () => {
         </div>
        
     </div>
+ 
+    <div className="flex  justify-between">
+    
+      <Filter
+      className="mb-[24px]"
+  search={query.search}
+  specialization={query.specialization}
+  employmentType={query.employmentType}
+  specializations={specializations}
+  onSearchChange={(value) =>
+    dispatch(setQuery({ search: value, page: 1 }))
+  }
+  onSpecializationChange={(value) =>
+    dispatch(setQuery({ specialization: value, page: 1 }))
+  }
+  onEmploymentTypeChange={(value) =>
+    dispatch(setQuery({ employmentType: value, page: 1 }))
+  }
+    />
+    <Sort
+  sortBy={query.sortBy}
+  sortOrder={query.sortOrder}
+  onChange={(sortBy, sortOrder) =>
+    dispatch(
+      setQuery({
+        sortBy,
+        sortOrder,
+        page: 1,
+      })
+    )
+  }
+      />
+    </div>
+    
     {loading ? <Loader /> :
       
       <div className="w-full p-[24p]">
@@ -77,8 +113,7 @@ export const DoctorsPage = () => {
    {doctors.map(doctor=><tr
   key={doctor.id}
   onClick={() => navigate(`/doctors/${doctor.id}`)}
-  className=" h-[76px] cursor-pointer hover:bg-[#DCFCE7] transition-colors"
->
+  className=" h-[76px] cursor-pointer hover:bg-[#DCFCE7] transition-colors">
   <Td>{`#${doctor.doctorCode}`}</Td>
 
   <Td>
@@ -97,11 +132,15 @@ export const DoctorsPage = () => {
 
   <Td>{doctor.employmentType}</Td>
 </tr>)}
+         {doctors.length === 0 && <div className="p-3 text-center text-gray-500">
+              Nothing found
+            </div>}   
   </tbody>
 
       </Table>
       </div>
     } 
+   
     <Pagination
     page={query.page}
     pageSize={query.pageSize}

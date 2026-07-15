@@ -76,6 +76,7 @@ export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
           className="flex flex-col gap-6 "
           onSubmit={handleSubmit(onSubmit)}
         >
+        
           <section>
       
          <Search
@@ -93,6 +94,7 @@ export const DoctorsForm: React.FC<Props> = ({ handleAside }) => {
     </>
   )}
 />
+
 
           
           </section>

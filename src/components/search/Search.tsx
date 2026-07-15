@@ -9,7 +9,7 @@ type Props<T> = {
   placeholder?: string;
 
   onSearch: (value: T) => void;
-  onSelect: (item: T) => void;
+  onSelect?: (item: T) => void;
   selectedUser: User | null;
   getKey: (item: T) => React.Key;
   renderItem: (item: T) => React.ReactNode;
@@ -46,6 +46,7 @@ export function Search<T>({
   return (
     <div className="relative">
       <Input
+        className="border-[1px] border-[#E5E7EB] rounded-[8px]"
         name="search"
         type="search"
         placeholder={placeholder}
