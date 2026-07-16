@@ -3,6 +3,8 @@ import type { Doctor } from "@/types/doctor";
 import type { DoctorQuery } from "./model/DoctorQuery";
 import { createDoctorThunk } from "./createDoctorThunk";
 import { getAllDoctorsThunk } from "./getAllDoctorsThunk";
+import { getDoctorByIdThunk } from "./getDoctorByIdThunk";
+import { updateDoctorThunk } from "./updateDoctorThunk";
 
 interface DoctorsState {
   doctors: Doctor[];
@@ -90,7 +92,30 @@ const doctorSlice = createSlice({
       .addCase(getAllDoctorsThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Failed to load doctors";
-      });
+      })
+      builder.addCase(getDoctorByIdThunk.pending, (state) => {
+        state.loading =true;
+})
+    .addCase(getDoctorByIdThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.selectedDoctor = action.payload;
+      
+    })
+        .addCase(getDoctorByIdThunk.rejected, (state) => {
+  state.loading = false;
+        }) 
+        .addCase(updateDoctorThunk.pending, state => {
+      state.loading = true
+        })
+     .addCase(updateDoctorThunk.fulfilled, (state, action) => {
+       state.loading = false;
+       console.log(action.payload);
+       state.selectedDoctor = action.payload
+       
+     })
+     .addCase(updateDoctorThunk.rejected, state => {
+       state.loading = false;
+    })
   },
 });
 

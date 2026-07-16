@@ -1,108 +1,79 @@
-import { useAppSelector } from "@/app/store/hook"
-import { ButtonPage } from "@/components/button/ButtonsPage"
+import { useAppDispatch, useAppSelector } from "@/app/store/hook";
+import { ButtonPage } from "@/components/button/ButtonsPage";
 import { TfiPencil } from "react-icons/tfi";
 import { IoTrash } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { AsideMenu } from "@/components/asideMenu/AsideMenu";
+import { DoctorEditForm } from "@/features/doctors/DoctorEditForm";
+import { useParams } from "react-router-dom";
+import { getDoctorByIdThunk } from "@/features/doctors/getDoctorByIdThunk";
+
+import { DoctorsProfile } from "./components/DoctorsProfile";
 export const DoctorDetailsPage = () => {
-  const { selectedDoctor } = useAppSelector(state => state.doctor)
+  const dispatch = useAppDispatch()
+  const [aside, setOpenAside] = useState(false);
+  const handleAside = () => setOpenAside((prev) => !prev);
+  const { doctorId } = useParams();
+  const{ selectedDoctor, loading} = useAppSelector(
+  (state) => state.doctor
+);
+
+  
+ useEffect(() => {
+  if (!doctorId) return;
+
+  dispatch(getDoctorByIdThunk(doctorId));
+}, [dispatch, doctorId]);
+  
   console.log(selectedDoctor)
-return (
-  <div className="rounded-xl bg-white p-6 shadow-sm">
-   
-    <section className="mb-8 flex items-center justify-between">
-      <div className="text-sm text-gray-500">
-        <span className="cursor-pointer hover:text-blue-600">
-          &lt; Doctors
-        </span>
-
-        <span className="mx-2">/</span>
-
-        <span className="font-medium text-gray-900">
-          Dr. {selectedDoctor?.firstName} {selectedDoctor?.lastName}
-        </span>
-      </div>
-
-      <div className="flex gap-3">
-        <ButtonPage
-          className="bg-[#EF4444] px-4 hover:bg-black"
-          icon={<IoTrash className="mr-2 text-white" />}
-        >
-          Remove doctor
-        </ButtonPage>
-
-        <ButtonPage
-          className="px-4"
-          icon={<TfiPencil className="mr-2" />}
-        >
-          Edit doctor
-        </ButtonPage>
-      </div>
-    </section>
-
-    {/* Doctor Card */}
-    <section className="flex items-center justify-between rounded-xl border border-gray-200 p-6">
-
-      <div className="flex items-center gap-5">
-
-        <img
-          src="/favicon.svg"
-          alt="Doctor"
-          className="h-20 w-20 rounded-full bg-amber-300 object-cover"
+  return (
+    <>
+      {aside && (
+        <AsideMenu
+          handleAside={handleAside}
+          forms={<DoctorEditForm handleAside={handleAside} />}
+          title={"EDIT DOCTOR"}
+          description={"Fill in the details below"}
         />
+      )}
 
-        <div>
-
-          <div className="mb-2 flex items-center gap-3">
-
-            <h1 className="text-2xl font-semibold">
-              Dr. {selectedDoctor?.firstName}{" "}
-              {selectedDoctor?.lastName}
-            </h1>
-
-            <span className="rounded-md bg-teal-100 px-3 py-1 text-sm font-medium text-teal-700">
-              {selectedDoctor?.employmentType}
+      <div className="rounded-xl bg-white p-6 shadow-sm">
+        <section className="mb-8 flex items-center justify-between">
+          <div className="text-sm text-gray-500">
+            <span className="cursor-pointer hover:text-blue-600">
+              &lt; Doctors
             </span>
 
+            <span className="mx-2">/</span>
+
+            <span className="font-medium text-gray-900">
+              Dr. {selectedDoctor?.firstName} {selectedDoctor?.lastName}
+            </span>
           </div>
 
-          <p className="mb-3 text-gray-600">
-            {selectedDoctor?.specialization}
-          </p>
+          <div className="flex gap-3">
+            <ButtonPage
+              className="bg-[#EF4444] px-4 hover:bg-black"
+              icon={<IoTrash className="mr-2 text-white" />}
+            >
+              Remove doctor
+            </ButtonPage>
 
-          <div className="flex gap-8 text-sm text-gray-500">
-
-            <span>{selectedDoctor?.phoneNumber}</span>
-
-            <span>{selectedDoctor?.email}</span>
-
+            <ButtonPage
+              className="px-4"
+              icon={<TfiPencil className="mr-2" />}
+              onClick={handleAside}
+            >
+              Edit doctor
+            </ButtonPage>
           </div>
+        </section>
 
-        </div>
-
+       
+        <section className="flex items-center justify-between rounded-xl border border-gray-200 p-6">
+       {!loading && selectedDoctor && <DoctorsProfile selectedDoctor={selectedDoctor}/>}
+        </section>
       </div>
-
-      {/* Workload */}
-
-      <div className="w-[320px]">
-
-        <div className="mb-2 flex justify-between text-sm">
-
-          <span className="font-medium">
-            Workload
-          </span>
-
-          <span>80%</span>
-
-        </div>
-
-        <div className="h-2 overflow-hidden rounded-full bg-gray-200">
-
-          <div className="h-full w-[80%] rounded-full bg-[#EF4444]"></div>
-
-        </div>
-
-      </div>
-
-    </section>
-  </div>
-);
-}
+    </>
+  );
+};

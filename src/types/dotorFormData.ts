@@ -4,7 +4,7 @@
     lastName: string;
     email: string;
     phone: number;
-    experience: number;
+    yearsExperience: number;
     specialization: string;
     employmentType: string;
     workingDays: string[];

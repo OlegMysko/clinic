@@ -1,3 +1,6 @@
+import { RevenueChart } from "@/components/graphic/graphic";
+
 export const CalendarPage = () => {
-  return "hello calendar";
+  return <>
+  <RevenueChart/></>;
 };

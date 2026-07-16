@@ -11,6 +11,11 @@ export const userService = {
   getAllUsers: (search?: string): Promise<User[]> =>
     httpClient.get("accounts/users", { params: { search } }),
 
+  getDoctorProfile: (id: string) => {
+    return httpClient.get(`doctors/${id}/profile`)
+    
+  },
+
  getAllDoctors: (query: DoctorQuery) => {
   const params: Record<string, string | number> = {
     page: query.page,
@@ -65,35 +70,20 @@ export const userService = {
       },
     );
   },
-
-  //   changeName: (name: string) =>
-  //   httpClient.patch('/users/change-name', {name},{
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-  //     }
-  //   }),
-  //    changePassword: (password: string,newPassword:string,confirmPassword:string)=>
-  //   httpClient.post('/users/change-password', {password,newPassword,confirmPassword},{
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-  //     }
-  //   }),
-  //     changeEmail: (email:string,password:string)=>
-  //   httpClient.post('/users/change-email', {email,password},{
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //       skipAuthInterceptor: true
-  //     }
-  //   }),
-
-  // confirmChangeEmail: (token: string) => {
-  //   return httpClient.get(`/users/confirm-email?token=${token}`, {
-  //     headers: { skipAuthInterceptor: true }
-  //   });
-  // },
-  // finalConfirm: (token: string) => {
-  //   return httpClient.get(`/users/confirm-finall?token=${token}`, {
-  //     headers: { skipAuthInterceptor: true }
-  //   });
-  // }
-};
+  updateDoctor: (
+  id: string,
+  data: DoctorFormData
+) => {
+  return httpClient.patch(
+    `doctors/${id}/profile`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${accessTokenService.get()}`,
+      },
+    }
+  );
+},
+    
+  
+  }
